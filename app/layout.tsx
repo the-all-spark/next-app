@@ -14,6 +14,9 @@ import {
   NavigationMenuLink,
 } from '@/components/ui/navigation-menu';
 
+import { LogoutButton } from '@/components/LogoutButton';
+import { ProtectedPagesLinks } from '@/components/ProtectedPagesLinks';
+
 const roboto = Roboto({ subsets: ['latin'], variable: '--font-sans' });
 
 const geistSans = Geist({
@@ -41,25 +44,25 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} overflow-y-scroll bg-background antialiased`}>
         <header className="flex h-17.5 flex-row items-center justify-between bg-white p-6 shadow-sm">
           <Link href="/">
-            <Image src={LogoImage} alt="Logo of app" />
+            <Image src={LogoImage} alt="Logo of app" loading="eager" />
           </Link>
 
           {/* Navigation menu */}
-          <NavigationMenu className="flex flex-row items-center">
-            <NavigationMenuList className="gap-4">
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link href="/about">About us</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+          <div className="flex flex-row items-center gap-4">
+            <NavigationMenu className="flex flex-row items-center">
+              <NavigationMenuList className="gap-4">
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                    <Link href="/about">About us</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
 
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link href="/patients">Patients</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+                <ProtectedPagesLinks />
+              </NavigationMenuList>
+            </NavigationMenu>
+
+            <LogoutButton />
+          </div>
         </header>
 
         {children}
