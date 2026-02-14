@@ -5,7 +5,7 @@ import { useAuthStore } from '@/store/use-auth-store';
 
 export function useAuth() {
   const router = useRouter();
-  const { user, isLoading, error, setUser, setLoading, setError, logout } = useAuthStore();
+  const { user, isLoading, error, setUser, setLoading, setError } = useAuthStore();
 
   const login = async (username: string, password: string) => {
     setLoading(true);
@@ -25,7 +25,6 @@ export function useAuth() {
       }
 
       setUser(data.user);
-      router.push('/profile');
       router.refresh();
 
       return { success: true };
@@ -34,6 +33,22 @@ export function useAuth() {
       return { success: false, error: error.message };
     } finally {
       setLoading(false);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      setUser(null);
+      setError(null);
+
+      await fetch('/api/logout', {
+        method: 'POST',
+      });
+
+      router.refresh();
+      router.push('/');
+    } catch (error) {
+      console.error('Logout error:', error);
     }
   };
 

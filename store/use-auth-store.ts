@@ -21,7 +21,6 @@ interface IActions {
   setUser: (user: null | User) => void;
   setLoading: (isLoading: boolean) => void;
   setError: (error: null | string) => void;
-  logout: () => void;
 }
 
 const initialState: IInitialState = {
@@ -38,16 +37,12 @@ const authStore: StateCreator<IAuthState, [['zustand/devtools', never], ['zustan
   setUser: (user) => set({ user }, false, 'setUser'),
   setLoading: (isLoading) => set({ isLoading }, false, 'authIsLoading'),
   setError: (error) => set({ error }, false, 'authError'),
-
-  logout: () => {
-    set({ user: null, error: null }, false, 'logout');
-  },
 });
 
 export const useAuthStore = create<IAuthState>()(
   devtools(
     persist(authStore, {
-      name: 'userAuth',
+      name: 'user-auth',
       partialize: (state) => ({ user: state.user }),
       storage: createJSONStorage(() => localStorage),
     })

@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,12 +9,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Request to dummyjson
-    const res = await fetch('https://dummyjson.com/user/login', {
+    const res = await fetch('https://dummyjson.com/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username,
         password,
+        expiresInMins: 60 * 24,
       }),
     });
 
@@ -22,20 +23,41 @@ export async function POST(request: NextRequest) {
 
     // Error from dummyjson
     if (!res.ok) {
-      return Response.json({ error: data.message || 'Wrong login and/or password' }, { status: res.status });
+      return NextResponse.json({ error: data.message || 'Wrong login and/or password' }, { status: res.status });
     }
 
     // Filter data for saving in localStorage
     const { accessToken, refreshToken, ...safeUser } = data;
 
-    const response = Response.json({
+    const response = NextResponse.json({
       user: safeUser,
       message: 'Successful login!',
+    });
+
+    // Set cookies with tokens in the response server (all cookies - httpOnly)
+    response.cookies.set({
+      name: 'access-token',
+      value: accessToken,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24,
+      path: '/',
+    });
+
+    response.cookies.set({
+      name: 'refresh-token',
+      value: refreshToken,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24,
+      path: '/',
     });
 
     return response;
   } catch (error) {
     console.error('Login error:', error);
-    return Response.json({ error: 'Server is temporarily unavailable' }, { status: 500 });
+    return NextResponse.json({ error: 'Server is temporarily unavailable' }, { status: 500 });
   }
 }
