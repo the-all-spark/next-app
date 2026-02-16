@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={roboto.variable}>
-      <body className={`${geistSans.variable} ${geistMono.variable} overflow-y-scroll bg-background antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col overflow-y-scroll bg-background antialiased`}>
         <header className="flex h-17.5 flex-row items-center justify-between bg-white p-6 shadow-sm">
           <Link href="/">
             <Image src={LogoImage} alt="Logo of app" loading="eager" />
@@ -65,7 +65,12 @@ export default function RootLayout({
           </div>
         </header>
 
-        {children}
+        <main className="flex-1">{children}</main>
+
+        <footer className="flex h-12 flex-row items-center justify-center gap-12 bg-white p-6 text-muted-foreground shadow-sm">
+          <Image src={LogoImage} alt="Logo of app" loading="eager" height={15} />
+          <p>Your time. Your patients. Our priority.</p>
+        </footer>
       </body>
     </html>
   );

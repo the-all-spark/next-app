@@ -6,7 +6,7 @@ import { NavigationMenuItem, navigationMenuTriggerStyle, NavigationMenuLink } fr
 import { useAuth } from '@/hooks/useAuth';
 
 export function ProtectedPagesLinks() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <>
@@ -20,8 +20,10 @@ export function ProtectedPagesLinks() {
 
           <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-              {/* //! Добавить иконку аккаунта или фото пользователя */}
-              <Link href="/profile">Profile</Link>
+              <Link href="/profile">
+                <img src={user?.image} alt="Current user photo" className="h-7 w-7 rounded-full border-3 p-px" />
+                Profile
+              </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </>

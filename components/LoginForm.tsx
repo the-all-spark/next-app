@@ -30,7 +30,7 @@ export function LoginForm() {
   };
 
   return (
-    <Card className="w-[70%] md:w-[60%] lg:w-[55%]">
+    <Card className="w-[70%] max-sm:h-full max-sm:w-full md:w-[60%] lg:w-[55%]">
       <CardHeader>
         <CardTitle className="text-center text-h2">Login</CardTitle>
         <CardDescription className="pb-4 text-center">Please fill in the form below to log in to your doctor's account</CardDescription>

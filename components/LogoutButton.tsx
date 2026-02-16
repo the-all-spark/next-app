@@ -1,13 +1,14 @@
 'use client';
 
-import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 
-export function LogoutButton() {
+import { useAuth } from '@/hooks/useAuth';
+
+export function LogoutButton(props: React.ComponentProps<typeof Button>) {
   const { isAuthenticated, logout } = useAuth();
 
   return isAuthenticated ? (
-    <Button variant="destructive" onClick={() => logout()}>
+    <Button variant="destructive" onClick={() => logout()} {...props}>
       Logout
     </Button>
   ) : null;
