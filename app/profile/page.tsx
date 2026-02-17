@@ -5,6 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { NotebookTabs, GraduationCap, BriefcaseBusiness, Coins, CreditCard, CircleUserRound, BookUser } from 'lucide-react';
 
+import { getAge } from '@/lib/utils';
+
 export default async function ProfilePage() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('access-token');
@@ -19,8 +21,6 @@ export default async function ProfilePage() {
   });
 
   const userData = await data.json();
-
-  let getAge = new Date().getFullYear() - userData.birthDate.split('-')[0];
 
   return (
     <>
@@ -72,7 +72,7 @@ export default async function ProfilePage() {
                   <p className="mb-3 text-medium text-foreground">{userData.gender}</p>
                   <p>Birth (age):</p>
                   <p className="text-medium text-foreground">
-                    {userData.birthDate} ({getAge} years old)
+                    {userData.birthDate} ({getAge(userData.birthDate)} years old)
                   </p>
                 </CardContent>
               </Card>

@@ -55,6 +55,16 @@ export async function POST(request: NextRequest) {
       path: '/',
     });
 
+    response.cookies.set({
+      name: 'current-user-id',
+      value: String(safeUser.id),
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24,
+      path: '/',
+    });
+
     return response;
   } catch (error) {
     console.error('Login error:', error);

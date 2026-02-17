@@ -8,6 +8,7 @@ export async function POST() {
     // Delete cookies on the server
     cookieStore.delete('access-token');
     cookieStore.delete('refresh-token');
+    cookieStore.delete('current-user-id');
 
     return NextResponse.json({ success: true });
   } catch (error) {

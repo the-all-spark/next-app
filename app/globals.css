@@ -64,7 +64,7 @@
 
 :root {
   --background: oklab(97.913% 0 -0.00011); /* change color */
-  --foreground: oklab(0% 0 0); /* change color */
+  --foreground: oklch(0% 0 0); /* change color */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
