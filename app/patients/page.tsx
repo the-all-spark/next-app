@@ -6,14 +6,7 @@ import { cookies } from 'next/headers';
 import AddRemoveButton from '@/components/AddRemoveButton';
 import LinkToDetails from '@/components/LinkToDetails';
 
-interface UserResponse {
-  id: number;
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-  gender: string;
-  phone: string;
-}
+import type { UserResponse } from '@/types/types';
 
 export default async function PatientsTablePage() {
   const data = await fetch('https://dummyjson.com/users?limit=10');
@@ -21,7 +14,7 @@ export default async function PatientsTablePage() {
 
   const cookieStore = await cookies();
   let currentUserId = Number(cookieStore.get('current-user-id')?.value);
-  console.log(currentUserId); //!
+  // console.log(currentUserId); //!
 
   let filteredUsers = allUsers.users.filter((user: UserResponse) => user.id !== currentUserId);
   filteredUsers.sort((a: UserResponse, b: UserResponse) => a.lastName.localeCompare(b.lastName));
