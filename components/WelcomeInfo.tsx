@@ -48,9 +48,8 @@ export function WelcomeInfo() {
 
           <div className="flex w-full flex-row justify-between gap-6 max-sm:flex-col max-sm:gap-3 md:gap-8 lg:gap-10 2xl:gap-12">
             <p>
-              To manage the healthcare needs of multiple individuals, you can access the "Patients" page. This section provides a comprehensive
-              overview of all patients linked to your account, allowing you to switch between profiles and manage their respective health information
-              efficiently.
+              To manage <b>patients linked to your account</b>, you can access the "Patients" page. This section provides an overview of all your
+              patients, allowing you to switch between profiles and manage their respective health information efficiently.
             </p>
             <Link href="/patients" className="w-25 max-sm:self-end">
               <Button className="w-25">Patients</Button>
@@ -58,7 +57,7 @@ export function WelcomeInfo() {
           </div>
         </div>
       ) : (
-        <div className="flex w-[80%] flex-row justify-between gap-4 max-sm:mb-6 max-sm:w-[90%] max-sm:flex-col max-sm:gap-6 md:gap-8 lg:w-[70%] xl:w-[50%]">
+        <div className="flex w-[80%] flex-row justify-between gap-4 max-sm:w-[90%] max-sm:flex-col max-sm:gap-6 md:gap-8 lg:w-[70%] xl:w-[50%]">
           <LoginForm />
 
           <Card className="h-[75%] w-[50%] max-sm:w-full md:h-[70%] md:w-[45%] lg:w-[40%]">

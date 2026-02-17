@@ -187,7 +187,7 @@ export default function StyledDataCard({ dataType, dataTitle, userData }: Styled
   const cardContent = getCardContent(dataType, userData);
 
   return (
-    <Card className="w-[47%] xl:w-[32%]">
+    <Card className="w-[47%] max-sm:w-full xl:w-[32%]">
       <CardHeader>
         <CardTitle className="flex flex-row items-center gap-2">
           {cardIcon} {dataTitle}

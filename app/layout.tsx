@@ -16,6 +16,7 @@ import {
 
 import { LogoutButton } from '@/components/LogoutButton';
 import { ProtectedPagesLinks } from '@/components/ProtectedPagesLinks';
+import { Burgermenu } from '@/components/Burgermenu';
 
 const roboto = Roboto({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -30,8 +31,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Next App', // TODO correct later
-  description: 'Next app for HCare', // TODO correct later
+  title: 'Next App',
+  description: 'HCare | A platform for doctors',
 };
 
 export default function RootLayout({
@@ -42,13 +43,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.variable}>
       <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col overflow-y-scroll bg-background antialiased`}>
-        <header className="flex h-17.5 flex-row items-center justify-between bg-white p-6 shadow-sm">
+        <header className="relative flex h-17.5 flex-row items-center justify-between bg-white p-6 shadow-sm">
+          <Burgermenu />
+
           <Link href="/">
             <Image src={LogoImage} alt="Logo of app" loading="eager" />
           </Link>
 
           {/* Navigation menu */}
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-row items-center gap-4 max-sm:hidden">
             <NavigationMenu className="flex flex-row items-center">
               <NavigationMenuList className="gap-4">
                 <NavigationMenuItem>
@@ -65,11 +68,11 @@ export default function RootLayout({
           </div>
         </header>
 
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 max-sm:mb-10">{children}</main>
 
-        <footer className="flex h-12 flex-row items-center justify-center gap-12 bg-white p-6 text-muted-foreground shadow-sm">
+        <footer className="flex h-12 flex-row items-center justify-center gap-12 bg-white p-6 text-muted-foreground shadow-sm max-sm:h-14">
           <Image src={LogoImage} alt="Logo of app" loading="eager" height={15} />
-          <p>Your time. Your patients. Our priority.</p>
+          <p className="max-sm:text-small">Your time. Your patients. Our priority.</p>
         </footer>
       </body>
     </html>
