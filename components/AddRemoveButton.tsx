@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Square, SquarePlus, SquareMinus } from 'lucide-react';
 import { useSelectedUsersStore } from '@/store/use-selected-users-store';
 
-export default function AddRemoveButton({ userId }: { userId: number }) {
+export default function AddRemoveButton({ userId, doctorId }: { userId: number; doctorId: number }) {
   const [hydrated, setHydrated] = useState(false);
   const { addUser, removeUser, isSelected } = useSelectedUsersStore();
 
@@ -14,12 +14,12 @@ export default function AddRemoveButton({ userId }: { userId: number }) {
   }, []);
 
   const handleToggle = () => {
-    if (isSelected(userId)) {
+    if (isSelected(doctorId, userId)) {
       alert(`REMOVING user with id ${userId}`); //!
-      removeUser(userId);
+      removeUser(doctorId, userId);
     } else {
       alert(`ADDING user with id ${userId}`); //!
-      addUser(userId);
+      addUser(doctorId, userId);
     }
   };
 
@@ -33,7 +33,7 @@ export default function AddRemoveButton({ userId }: { userId: number }) {
 
   return (
     <button className="hover:cursor-pointer" onClick={handleToggle}>
-      {isSelected(userId) ? (
+      {isSelected(doctorId, userId) ? (
         <SquareMinus size={20} strokeWidth={2.25} color="var(--color-destructive)" />
       ) : (
         <SquarePlus size={20} strokeWidth={2.25} color="var(--color-primary)" />

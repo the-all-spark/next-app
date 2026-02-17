@@ -2,18 +2,22 @@ import { create, StateCreator } from 'zustand';
 import { devtools, persist, createJSONStorage } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+interface IUsersByDoctor {
+  [id: number]: number[];
+}
+
 interface IInitialState {
-  selectedUsers: number[];
+  usersByDoctor: IUsersByDoctor;
 }
 
 interface IActions {
-  addUser: (userId: number) => void;
-  removeUser: (userId: number) => void;
-  isSelected: (userId: number) => boolean;
+  addUser: (doctorId: number, userId: number) => void;
+  removeUser: (doctorId: number, userId: number) => void;
+  isSelected: (doctorId: number, userId: number) => boolean;
 }
 
 const initialState: IInitialState = {
-  selectedUsers: [],
+  usersByDoctor: {},
 };
 
 interface ISelectedUsersState extends IInitialState, IActions {}
@@ -24,24 +28,44 @@ const selectedUsersStore: StateCreator<ISelectedUsersState, [['zustand/immer', n
 ) => ({
   ...initialState,
 
-  addUser: (userId) =>
+  addUser: (doctorId: number, userId: number) =>
     set(
       (state) => {
-        const exists = state.selectedUsers.some((id) => id === userId);
-        if (exists) return state;
+        const currentDoctorUsers = Array.isArray(state.usersByDoctor[doctorId]) ? state.usersByDoctor[doctorId] : [];
+
+        const isUserExisted = currentDoctorUsers.includes(userId);
+        if (isUserExisted) return state;
 
         return {
-          selectedUsers: [...state.selectedUsers, userId],
+          usersByDoctor: {
+            ...state.usersByDoctor,
+            [doctorId]: [...currentDoctorUsers, userId],
+          },
         };
       },
       false,
       'addUser'
     ),
 
-  removeUser: (userId: number) => set((state) => ({ selectedUsers: state.selectedUsers.filter((id: number) => id !== userId) }), false, 'removeUser'),
+  removeUser: (doctorId: number, userId: number) =>
+    set(
+      (state) => {
+        const currentDoctorUsers = Array.isArray(state.usersByDoctor[doctorId]) ? state.usersByDoctor[doctorId] : [];
 
-  isSelected: (userId: number) => {
-    return get().selectedUsers.some((id) => id === userId);
+        return {
+          usersByDoctor: {
+            ...state.usersByDoctor,
+            [doctorId]: currentDoctorUsers.filter((id: number) => id !== userId),
+          },
+        };
+      },
+      false,
+      'removeUser'
+    ),
+
+  isSelected: (doctorId: number, userId: number) => {
+    const currentDoctorUsers = get().usersByDoctor[doctorId] || [];
+    return Array.isArray(currentDoctorUsers) && currentDoctorUsers.includes(userId);
   },
 });
 
@@ -50,7 +74,7 @@ export const useSelectedUsersStore = create<ISelectedUsersState>()(
     devtools(
       persist(selectedUsersStore, {
         name: 'selected-users',
-        partialize: (state) => ({ selectedUsers: state.selectedUsers }),
+        partialize: (state) => ({ usersByDoctor: state.usersByDoctor }),
         storage: createJSONStorage(() => localStorage),
         skipHydration: true,
       })

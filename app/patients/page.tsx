@@ -18,11 +18,10 @@ interface UserResponse {
 export default async function PatientsTablePage() {
   const data = await fetch('https://dummyjson.com/users?limit=10');
   const allUsers = await data.json();
-  // console.log(allUsers.users); //!
 
   const cookieStore = await cookies();
   let currentUserId = Number(cookieStore.get('current-user-id')?.value);
-  // console.log(currentUserId); //!
+  console.log(currentUserId); //!
 
   let filteredUsers = allUsers.users.filter((user: UserResponse) => user.id !== currentUserId);
   filteredUsers.sort((a: UserResponse, b: UserResponse) => a.lastName.localeCompare(b.lastName));
@@ -31,6 +30,8 @@ export default async function PatientsTablePage() {
   return (
     <>
       <h1 className="mt-4 p-8 text-center text-h1 font-bold">Patients</h1>
+
+      <p className="m-auto mb-5 w-[90%] text-small">Your ID: {currentUserId}</p>
 
       <Table className="m-auto mb-10 w-[90%] rounded-xl border-border bg-card shadow-md">
         <TableHeader>
@@ -56,10 +57,10 @@ export default async function PatientsTablePage() {
               <TableCell>{user.gender === 'female' ? 'F' : 'M'}</TableCell>
               <TableCell>{user.phone}</TableCell>
               <TableCell>
-                <LinkToDetails userId={user.id} />
+                <LinkToDetails userId={user.id} doctorId={currentUserId} />
               </TableCell>
               <TableCell className="text-center">
-                <AddRemoveButton userId={user.id} />
+                <AddRemoveButton userId={user.id} doctorId={currentUserId} />
               </TableCell>
             </TableRow>
           ))}
