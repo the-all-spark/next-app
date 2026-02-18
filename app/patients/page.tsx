@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { getAge } from '@/lib/utils';
 import { cookies } from 'next/headers';
 
-import AddRemoveButton from '@/components/AddRemoveButton';
+import AddRemoveAlert from '@/components/AddRemoveAlert';
 import LinkToDetails from '@/components/LinkToDetails';
 
 import type { UserResponse } from '@/types/types';
@@ -51,7 +51,7 @@ export default async function PatientsTablePage() {
                 <LinkToDetails userId={user.id} doctorId={currentUserId} />
               </TableCell>
               <TableCell className="text-center">
-                <AddRemoveButton userId={user.id} doctorId={currentUserId} />
+                <AddRemoveAlert userId={user.id} doctorId={currentUserId} />
               </TableCell>
             </TableRow>
           ))}

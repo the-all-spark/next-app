@@ -4,24 +4,20 @@ import { useState, useEffect } from 'react';
 import { Square, SquarePlus, SquareMinus } from 'lucide-react';
 import { useSelectedUsersStore } from '@/store/use-selected-users-store';
 
-export default function AddRemoveButton({ userId, doctorId }: { userId: number; doctorId: number }) {
+interface IAddRemoveButtonProps {
+  userId: number;
+  doctorId: number;
+  handleToggle: () => void;
+}
+
+export default function AddRemoveButton({ userId, doctorId, handleToggle }: IAddRemoveButtonProps) {
   const [hydrated, setHydrated] = useState(false);
-  const { addUser, removeUser, isSelected } = useSelectedUsersStore();
+  const { isSelected } = useSelectedUsersStore();
 
   useEffect(() => {
     useSelectedUsersStore.persist.rehydrate();
     setHydrated(true);
   }, []);
-
-  const handleToggle = () => {
-    if (isSelected(doctorId, userId)) {
-      alert(`REMOVING user with id ${userId}`); //!
-      removeUser(doctorId, userId);
-    } else {
-      alert(`ADDING user with id ${userId}`); //!
-      addUser(doctorId, userId);
-    }
-  };
 
   if (!hydrated) {
     return (
