@@ -5,7 +5,12 @@ import { ExternalLink } from 'lucide-react';
 
 import { useSelectedUsersStore } from '@/store/use-selected-users-store';
 
-export default function LinkToDetails({ userId, doctorId }: { userId: number; doctorId: number }) {
+interface ILinkToDetailsProps {
+  userId: number;
+  doctorId: number;
+}
+
+export default function LinkToDetails({ userId, doctorId }: ILinkToDetailsProps) {
   const { isSelected } = useSelectedUsersStore();
 
   return (

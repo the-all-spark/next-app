@@ -8,12 +8,10 @@ export default async function PatientDetailsPage({ params }: { params: Promise<{
   const { id } = await params;
 
   const doctorData = await getAuthenticatedUser();
-  // console.log(doctorData); //!
   let doctorId = doctorData.id;
 
   const data = await fetch(`https://dummyjson.com/users/${id}`);
   const patientData = await data.json();
-  // console.log(patientData); //!
 
   return (
     <>

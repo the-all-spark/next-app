@@ -5,7 +5,12 @@ import ProtectedPatientData from '@/components/ProtectedPatientData';
 
 import type { DetailedUserResponse } from '@/types/types';
 
-export default function PatientData({ doctorId, patientData }: { doctorId: number; patientData: DetailedUserResponse }) {
+interface IPatientDataProps {
+  doctorId: number;
+  patientData: DetailedUserResponse;
+}
+
+export default function PatientData({ doctorId, patientData }: IPatientDataProps) {
   const { isSelected } = useSelectedUsersStore();
 
   return (

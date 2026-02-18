@@ -16,7 +16,6 @@ export function WelcomeInfo() {
   return (
     <>
       {isAuthenticated ? (
-        // TODO подкорректировать тексты в соответствии с тем что будет на страницах
         <div className="m-auto flex w-[80%] flex-col justify-between gap-8 md:w-[70%] md:gap-10 lg:w-[60%] xl:w-[50%] 2xl:w-[45%]">
           <div className="flex w-full flex-row justify-between gap-6 max-sm:flex-col max-sm:gap-3 md:gap-8 lg:gap-10 2xl:gap-12">
             <div>

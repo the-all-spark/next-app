@@ -1,8 +1,9 @@
 'use client';
 
-import type { DetailedUserResponse } from '@/types/types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import StyledDataCard from '@/components/StyledDataCard';
+
+import type { DetailedUserResponse } from '@/types/types';
 
 export default function ProtectedPatientData({ patientData }: { patientData: DetailedUserResponse }) {
   return (
