@@ -10,6 +10,8 @@ import {
   AlertDialogMedia,
   AlertDialogTitle,
   AlertDialogTrigger,
+  AlertDialogFooter,
+  AlertDialogCancel,
 } from '@/components/ui/alert-dialog';
 
 import AddRemoveButton from '@/components/AddRemoveButton';
@@ -52,7 +54,7 @@ export default function AddRemoveAlert({ userId, doctorId }: IAddRemoveAlertProp
     if (open) {
       const timer = setTimeout(() => {
         setOpen(false);
-      }, 1500);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [open]);
@@ -76,6 +78,9 @@ export default function AddRemoveAlert({ userId, doctorId }: IAddRemoveAlertProp
             User with <b>id {userId}</b> {content.message}
           </AlertDialogDescription>
         </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel variant="default">Close</AlertDialogCancel>
+        </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   );

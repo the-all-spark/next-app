@@ -12,13 +12,15 @@ export default async function ProfilePage() {
       <h1 className="mt-4 p-8 text-center text-h1 font-bold">Personal Profile</h1>
 
       <Card className="m-auto mb-10 w-[90%] md:w-[80%] xl:w-[85%]">
-        <CardHeader className="flex flex-row items-center gap-4">
-          <img src={userData.image} alt="User photo" className="h-15 w-15 rounded-full border-3 p-px" />
-          <div>
-            <CardTitle className="text-left text-h2">
-              {userData.firstName} {userData.lastName}
-            </CardTitle>
-            <CardDescription className="text-left">Doctor</CardDescription>
+        <CardHeader className="flex flex-row items-center justify-between gap-4">
+          <div className="flex flex-row items-center gap-4">
+            <img src={userData.image} alt="User photo" className="h-15 w-15 rounded-full border-3 p-px" />
+            <div>
+              <CardTitle className="text-left text-h2">
+                {userData.firstName} {userData.lastName}
+              </CardTitle>
+              <CardDescription className="text-left">Doctor</CardDescription>
+            </div>
           </div>
         </CardHeader>
 
