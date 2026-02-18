@@ -3,9 +3,9 @@
 **Name**: HCare - a platform for doctors  
 **Description**: Next-application for doctors to manage their patients' data.
 
-# --- Deploy
+# Deploy
 
-Application is available at the [address](Vercel link).
+Application is available at the [address](https://next-app-dusky-eight.vercel.app/).
 
 # Functionality
 
